@@ -12,16 +12,17 @@ function LoginPage() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://127.0.0.1:8000/api/token-auth/', creds);
+      const res = await axios.post('http://127.0.0.1:8000/api-token-auth/', creds);
       const token = res.data.token;
       localStorage.setItem('userToken', token);
       axios.defaults.headers.common['Authorization'] = `Token ${token}`;
       setMessage('Login successful');
       alert('Login Successful!');
     } catch (err) {
+      const info = err?.response?.data || err.message;
       setMessage('Invalid credentials');
       alert('Invalid Credentials');
-      console.log(err?.response?.data || err.message);
+      console.error('Login error:', info);
     }
   };
 
