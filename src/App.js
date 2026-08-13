@@ -9,7 +9,7 @@ import CoursePage from './pages/CoursePage';
 import LoginPage from './pages/LoginPage';
 import Navbar from './components/Navbar';
 import Contact from './components/Contact';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 
 function App() {

@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
+import { AuthContext } from '../context/AuthContext';
 
 function LoginPage() {
   const [creds, setCreds] = useState({ username: '', password: '' });
   const [message, setMessage] = useState('');
+  const { login } = useContext(AuthContext);
 
   const handleChange = (e) => setCreds({ ...creds, [e.target.name]: e.target.value });
 
@@ -14,11 +16,12 @@ function LoginPage() {
       const token = res.data.token;
       localStorage.setItem('userToken', token);
       axios.defaults.headers.common['Authorization'] = `Token ${token}`;
+      login({ username: creds.username, token });
       setMessage('Login successful');
+      alert('Login successful');
     } catch (err) {
-      const info = err?.response?.data || err.message;
       setMessage('Invalid credentials');
-      console.error('Login error:', info);
+      console.log(err.response?.data || err.message);
     }
   };
 
