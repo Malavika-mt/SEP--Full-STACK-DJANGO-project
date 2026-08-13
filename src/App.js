@@ -10,15 +10,17 @@ import LoginPage from './pages/LoginPage';
 import Navbar from './components/Navbar';
 import Contact from './components/Contact';
 import { Routes, Route, Link } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   return (
-    <div className="App">
-      <Header />
+    <AuthProvider>
+      <div className="App">
+        <Header />
 
-      <Navbar />
-      <Contact/>
-      <Routes>
+        <Navbar />
+        <Contact/>
+        <Routes>
         <Route path="/about" element={<About />} />
         <Route path="/" element={<Home />} />
         <Route path="/courses" element={<CoursePage />} />
@@ -32,6 +34,7 @@ function App() {
         </section>
       </main>
     </div>
+    </AuthProvider>
   );
 }
 
