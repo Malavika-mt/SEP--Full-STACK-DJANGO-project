@@ -5,23 +5,19 @@ function LoginPage() {
   const [creds, setCreds] = useState({ username: '', password: '' });
   const [message, setMessage] = useState('');
 
-  const handleChange = (e) => {
-    setCreds({ ...creds, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e) => setCreds({ ...creds, [e.target.name]: e.target.value });
 
   const handleLogin = async (e) => {
-    e.preventDefault();
+    e && e.preventDefault();
     try {
       const res = await axios.post('http://127.0.0.1:8000/api-token-auth/', creds);
       const token = res.data.token;
       localStorage.setItem('userToken', token);
       axios.defaults.headers.common['Authorization'] = `Token ${token}`;
       setMessage('Login successful');
-      alert('Login Successful!');
     } catch (err) {
       const info = err?.response?.data || err.message;
       setMessage('Invalid credentials');
-      alert('Invalid Credentials');
       console.error('Login error:', info);
     }
   };
@@ -37,7 +33,7 @@ function LoginPage() {
             name="username"
             value={creds.username}
             onChange={handleChange}
-            placeholder="username"
+            placeholder="Username"
           />
         </label>
 
@@ -48,7 +44,7 @@ function LoginPage() {
             name="password"
             value={creds.password}
             onChange={handleChange}
-            placeholder="Enter your password"
+            placeholder="Password"
           />
         </label>
 
