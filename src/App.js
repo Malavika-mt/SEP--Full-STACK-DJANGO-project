@@ -1,24 +1,40 @@
-import logo from './logo.svg';
 import './App.css';
+
+import { Header } from './components';
+import UserGreeting from './components/UseGreeting';
+import About from './components/about';
+import Home from './components/Home';
+import StudentPage from './pages/StudentPage';
+import CoursePage from './pages/CoursePage';
+import LoginPage from './pages/LoginPage';
+import Navbar from './components/Navbar';
+import Contact from './components/Contact';
+import { Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <AuthProvider>
+      <div className="App">
+        <Header />
+
+        <Navbar />
+        <Contact/>
+        <Routes>
+        <Route path="/about" element={<About />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/courses" element={<CoursePage />} />
+        <Route path="/students" element={<StudentPage />} />
+        <Route path="/login" element={<LoginPage />} />
+      </Routes>
+
+      <main>
+        <section>
+          <UserGreeting isLoggedIn={true} />
+        </section>
+      </main>
     </div>
+    </AuthProvider>
   );
 }
 
